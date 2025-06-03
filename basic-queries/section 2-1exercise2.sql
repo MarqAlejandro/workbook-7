@@ -62,7 +62,8 @@ FROM Employees;
 
 --14
 SELECT *                --can't solve rn
-FROM Employees;
+FROM Employees
+WHERE Salary >= 2000 AND Salary <= 5000;
 
 --15
 SELECT *
