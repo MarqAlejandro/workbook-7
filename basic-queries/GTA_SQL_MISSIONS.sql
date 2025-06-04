@@ -1,0 +1,69 @@
+SELECT Name, Profession
+FROM GTA.Citizens;
+
+SELECT *
+FROM GTA.Citizens
+WHERE Age < = 25;
+
+SELECT *
+FROM GTA.Vehicles
+ORDER BY Speed;
+
+SELECT C.Name, COUNT(V.OwnerID) AS [Vehicles Owned]
+FROM  GTA.Citizens AS C LEFT JOIN GTA.Vehicles AS V
+    ON C.CitizenID = V.OwnerID
+GROUP BY C.Name;
+
+-- mission 1
+SELECT  NAME, ALIAS, WANTEDLEVEL
+FROM GTA.Citizens
+WHERE WANTEDLEVEL > = 2;
+
+-- mission 2
+SELECT C.Name, V.Type, V.Brand
+FROM GTA.Vehicles AS V LEFT JOIN GTA.Citizens AS C
+    ON V.OwnerID = C.CitizenID 
+WHERE V.IsStolen = 1;
+
+-- mission 3
+SELECT C.NAME AS Name, SUM(M.REWARD) AS REWARD
+FROM GTA.ASSIGNMENTS AS A LEFT JOIN GTA.Citizens AS C
+    ON A.CitizenID = C.CitizenID
+LEFT JOIN GTA.Missions AS M
+    ON A.MissionID = M.MissionID
+GROUP BY C.NAME
+ORDER BY REWARD DESC;
+
+-- mission 4
+
+SELECT C.NAME, COUNT(A.COMPLETED) AS [ # of Completed Missions ], MIN(A.TimeSpent) AS [Slowest Time], MAX(A.TimeSpent) as [Fastest Time]
+FROM GTA.ASSIGNMENTS AS A LEFT JOIN GTA.Citizens AS C
+    ON A.CITIZENID = C.CITIZENID
+LEFT JOIN GTA.Missions AS M
+    ON A.MISSIONID = M.MISSIONID
+GROUP BY C.NAME
+ORDER BY [ # of Completed Missions] DESC;
+
+--mission 5
+SELECT C.NAME, COUNT(A.COMPLETED) AS [# of Completed Missions], SUM(M.REWARD) AS [Earned Reward]
+FROM GTA.ASSIGNMENTS AS A LEFT JOIN GTA.Citizens AS C
+    ON A.CITIZENID = C.CITIZENID
+LEFT JOIN GTA.MISSIONS AS M
+    ON A.MISSIONID = M.MISSIONID
+GROUP BY C.NAME
+HAVING COUNT(A.COMPLETED) >= 2 AND SUM(M.REWARD) >= 4000
+;
+
+
+
+SELECT *
+FROM GTA.ASSIGNMENTS;
+
+SELECT *
+FROM GTA.Citizens;
+
+SELECT *
+FROM GTA.MISSIONS;
+
+
+
