@@ -1,0 +1,47 @@
+--1
+SELECT P.ProductID, P.ProductName, P.UnitPrice, C.CategoryName
+FROM PRODUCTS AS P
+LEFT JOIN CATEGORIES AS C
+    ON P.CATEGORYID = C.CATEGORYID
+ORDER BY C.CategoryName, P.ProductName;
+
+--2
+SELECT P.ProductID, P.ProductName, P.UnitPrice, S.CompanyName
+FROM PRODUCTS AS P
+LEFT JOIN SUPPLIERS AS S
+    ON P.SupplierID = S.SupplierID 
+WHERE UNITPRICE > 75
+ORDER BY P.ProductName;
+
+--3
+SELECT P.ProductID, P.ProductName, P.UnitPrice, C.CategoryName, S.CompanyName
+FROM PRODUCTS AS P
+LEFT JOIN CATEGORIES AS C
+    ON P.CategoryID = C.CategoryID
+LEFT JOIN SUPPLIERS AS S
+    ON P.SupplierID = S.SupplierID
+ORDER BY P.ProductName;
+
+--4
+SELECT P.PRODUCTNAME, C.CategoryName
+FROM PRODUCTS AS P
+LEFT JOIN Categories AS C
+    ON P.CategoryID = C.CategoryID
+WHERE P.UNITPRICE = (SELECT MAX(UNITPRICE)
+                   FROM PRODUCTS);
+
+--5
+SELECT O.ORDERID, O.SHIPNAME, O.SHIPADDRESS, S.COMPANYNAME, O.ShipCountry
+FROM ORDERS AS O
+LEFT JOIN SHIPPERS AS S
+    ON O.ShipVia = S.ShipperID
+WHERE ShipCountry LIKE '%GERMANY%';
+
+--6
+SELECT *
+FROM ORDERS AS O
+LEFT JOIN [Order Details] AS OD
+    ON O.ORDERID = OD.ORDERID
+LEFT JOIN PRODUCTS AS P
+    ON OD.PRODUCTID = P.PRODUCTID
+WHERE P.ProductName LIKE '%SASQUATCH ALE%';
