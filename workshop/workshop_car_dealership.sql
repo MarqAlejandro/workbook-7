@@ -15,7 +15,7 @@ CREATE TABLE MARQ.vehicles(
     vehicle_type NVARCHAR(12),
     color NVARCHAR(12),
     odometer INT,
-    price FLOAT,
+    price DECIMAL(10,2),
     sold BIT DEFAULT 0
 )
 
